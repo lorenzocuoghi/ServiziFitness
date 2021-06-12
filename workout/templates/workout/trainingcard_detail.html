@@ -1,0 +1,30 @@
+{% extends "workout/base.html" %}
+{% block head %}
+
+    <title>{{ trainingcard }}</title>
+
+{% endblock %}
+{% block body %}
+
+    <h1>{{ trainingcard }}</h1>
+    <table>
+        <tr><td>Description:</td><td>{{ trainingcard.description }}</td></tr>
+        <tr><td>Type:</td><td>{{ trainingcard.type|title }}</td></tr>
+        <tr><td>Level:</td><td>{{ trainingcard.level|title }}</td></tr>
+        <tr><td>Goal:</td><td>{{ trainingcard.goal|title }}</td></tr>
+        <tr><td>Times a week:</td><td>{{ trainingcard.taw }}</td></tr>
+        <tr><td>Visibility:</td><td>{% ifequal trainingcard.public False %}Private{% else %}Public{% endifequal %}</td></tr>
+    </table>
+    <p>Exercises:</p>
+    <ul>
+        {% for exer in trainingcard.concreteexercise_set.all %}
+            <li>
+                <a href="{% url 'workout:exercise_detail' exer.id %}">{{ exer }}</a>:
+                {{ exer.series }} series x {{ exer.reps }} reps, {{ exer.rest }}s rest
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'workout:trainingcard_change' trainingcard.id %}"><button>Edit</button></a>
+    <a href="{% url 'workout:trainingcard_delete' trainingcard.id %}"><button>Delete</button></a>
+
+{% endblock %}

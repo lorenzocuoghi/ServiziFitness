@@ -1,0 +1,17 @@
+{% extends "workout/base.html" %}
+{% block head %}
+
+    <title>{{ exercise }}</title>
+
+{% endblock %}
+{% block body %}
+
+    <h1>{{ exercise }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ exercise }}"?</p>
+        <input type="submit" value="Confirm">
+    </form>
+
+{% endblock %}

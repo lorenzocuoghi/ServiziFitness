@@ -1,0 +1,14 @@
+{% extends "workout/base.html" %}
+{% block head %}
+
+    <title>Title</title>
+
+{% endblock %}
+{% block body %}
+
+    <h1>My Workout</h1>
+
+    <a href="{% url 'workout:trainingcard_list' %}"><button>My Training Cards</button></a>
+    <a href="{% url 'workout:exercise_list' %}"><button>My Exercises</button></a>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "workout/base.html" %}
+{% block head %}
+
+    {% load static %}
+    <script src="{% static 'workout/js/add_form.js' %}"></script>
+    <title>
+        {% if form.name.value %}
+            Edit {{ form.name.value }}
+        {% else %}
+            New training card
+        {% endif %}
+    </title>
+
+{% endblock %}
+{% block body %}
+
+    <h1>
+        {% if form.name.value %}
+            {{ form.name.value }}
+        {% else %}
+            New training card
+        {% endif %}
+    </h1>
+
+    <form id="form-container" action="{% if card_id %}{% url 'workout:trainingcard_submit' card_id %}
+                  {% else %}{% url 'workout:trainingcard_create' %}
+                  {% endif %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ exer_formset.management_form }}
+        {% for exer_form in exer_formset %}
+            <div class="exercise-form">
+                <p>-----------------------------------------------------------------------------------------</p>
+                {{ exer_form.as_p }}
+            </div>
+        {% endfor %}
+        <button id="add-form" type="button">Add another exercise</button>
+        <br><br>
+        <input type="submit" value="Save" />
+    </form>
+
+{% endblock %}

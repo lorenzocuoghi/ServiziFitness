@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+
+    <h1>Register</h1>
+
+    <form action="{% url 'accounts:register' %}" method="post">
+        {% csrf_token %}
+        {{ userform.as_p }}
+        {{ profileform.as_p }}
+        <input type="submit" value="SignUp" />
+    </form>
+
+</body>
+</html>

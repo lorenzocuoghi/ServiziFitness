@@ -1,0 +1,41 @@
+{% extends "workout/base.html" %}
+{% block head %}
+
+    <title>
+        {% if search %}
+            Search
+        {% else %}
+            My
+        {% endif %}
+        Training Cards
+    </title>
+
+{% endblock %}
+{% block body %}
+
+    <h1>
+        {% if search %}
+            Search
+        {% else %}
+            My
+        {% endif %}
+        Training Cards
+    </h1>
+
+    {% if not search %}
+        <a href="{% url 'workout:trainingcard_create' %}"><button>Create New</button></a>
+        <a href="{% url 'workout:trainingcard_search' %}"><button>Search Existing</button></a>
+    {% endif %}
+
+    {% if trainingcard_list %}
+        <ul>
+            {% for trainingcard in trainingcard_list %}
+                <li><a href="{% url 'workout:trainingcard_detail' trainingcard.id %}">{{ trainingcard }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+	    <p>No training cards are available.</p>
+    {% endif %}
+
+
+{% endblock %}

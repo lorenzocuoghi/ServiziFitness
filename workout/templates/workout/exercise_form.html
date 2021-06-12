@@ -1,0 +1,31 @@
+{% extends "workout/base.html" %}
+{% block head %}
+
+    <title>
+        {% if form.name.value %}
+            Edit {{ form.name.value }}
+        {% else %}
+            New exercise
+        {% endif %}
+    </title>
+
+{% endblock %}
+{% block body %}
+
+    <h1>
+        {% if form.name.value %}
+            {{ form.name.value }}
+        {% else %}
+            New exercise
+        {% endif %}
+    </h1>
+
+    <form action="{% if exer_id %}{% url 'workout:exercise_submit' exer_id %}
+                  {% else %}{% url 'workout:exercise_create' %}
+                  {% endif %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
+    </form>
+
+{% endblock %}

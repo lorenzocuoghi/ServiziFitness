@@ -1,0 +1,40 @@
+{% extends "workout/base.html" %}
+{% block head %}
+
+    <title>
+        {% if search %}
+            Search
+        {% else %}
+            My
+        {% endif %}
+        Exercises
+    </title>
+
+{% endblock %}
+{% block body %}
+
+    <h1>
+        {% if search %}
+            Search
+        {% else %}
+            My
+        {% endif %}
+        Exercises
+    </h1>
+
+    {% if not search %}
+        <a href="{% url 'workout:exercise_create' %}"><button>New exercise</button></a>
+        <a href="{% url 'workout:exercise_search' %}"><button>Search Existing</button></a>
+    {% endif %}
+
+    {% if exercise_list %}
+        <ul>
+            {% for exercise in exercise_list %}
+                <li><a href="{% url 'workout:exercise_detail' exercise.id %}">{{ exercise }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+	    <p>No execises are available.</p>
+    {% endif %}
+
+{% endblock %}
