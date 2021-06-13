@@ -1,4 +1,4 @@
-{% extends "workout/base.html" %}
+{% extends "base.html" %}
 {% block head %}
 
     <title>{{ exercise }}</title>
@@ -10,11 +10,14 @@
     <img src="{% if exercise.image %}{{ exercise.image.url }}{% endif %}" alt="No image">
     <table>
         <tr><td>Description:</td><td>{{ exercise.description }}</td></tr>
-        <tr><td>Type:</td><td>{{ exercise.type|title }}</td></tr>
-        <tr><td>Level:</td><td>{{ exercise.level|title }}</td></tr>
+        <tr><td>Type:</td><td>{{ exercise.get_type_display }}</td></tr>
+        <tr><td>Level:</td><td>{{ exercise.get_level_display }}</td></tr>
         <tr><td>Visibility:</td><td>{% ifequal exercise.public False %}Private{% else %}Public{% endifequal %}</td></tr>
     </table>
-    <a href="{% url 'workout:exercise_change' exercise.id %}"><button>Edit</button></a>
-    <a href="{% url 'workout:exercise_delete' exercise.id %}"><button>Delete</button></a>
+
+    {% if user.is_authenticated and exercise.user == user %}
+        <a href="{% url 'workout:exercise_change' exercise.id %}"><button>Edit</button></a>
+        <a href="{% url 'workout:exercise_delete' exercise.id %}"><button>Delete</button></a>
+    {% endif %}
 
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "workout/base.html" %}
+{% extends "base.html" %}
 {% block head %}
 
     <title>{{ trainingcard }}</title>
@@ -9,9 +9,9 @@
     <h1>{{ trainingcard }}</h1>
     <table>
         <tr><td>Description:</td><td>{{ trainingcard.description }}</td></tr>
-        <tr><td>Type:</td><td>{{ trainingcard.type|title }}</td></tr>
-        <tr><td>Level:</td><td>{{ trainingcard.level|title }}</td></tr>
-        <tr><td>Goal:</td><td>{{ trainingcard.goal|title }}</td></tr>
+        <tr><td>Type:</td><td>{{ trainingcard.get_type_display }}</td></tr>
+        <tr><td>Level:</td><td>{{ trainingcard.get_level_display }}</td></tr>
+        <tr><td>Goal:</td><td>{{ trainingcard.get_goal_display }}</td></tr>
         <tr><td>Times a week:</td><td>{{ trainingcard.taw }}</td></tr>
         <tr><td>Visibility:</td><td>{% ifequal trainingcard.public False %}Private{% else %}Public{% endifequal %}</td></tr>
     </table>
@@ -24,7 +24,10 @@
             </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'workout:trainingcard_change' trainingcard.id %}"><button>Edit</button></a>
-    <a href="{% url 'workout:trainingcard_delete' trainingcard.id %}"><button>Delete</button></a>
+
+    {% if user.is_authenticated and trainingcard.user == user %}
+        <a href="{% url 'workout:trainingcard_change' trainingcard.id %}"><button>Edit</button></a>
+        <a href="{% url 'workout:trainingcard_delete' trainingcard.id %}"><button>Delete</button></a>
+    {% endif %}
 
 {% endblock %}

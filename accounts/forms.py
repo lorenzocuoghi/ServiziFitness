@@ -12,6 +12,13 @@ class UserForm(UserCreationForm):
         fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email')
 
 
+class UserEditForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email')
+
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -21,5 +28,5 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = Profile.get_field_names(Profile)
+        exclude = ('id', 'user',)
         widgets = {'birthday': DateInput()}

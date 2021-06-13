@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "base.html" %}
+{% block head %}
+
     <title>Login</title>
-</head>
-<body>
+
+{% endblock %}
+{% block body %}
 
     <h1>Login</h1>
 
@@ -29,5 +29,4 @@
 
     <a href="{% url 'accounts:register' %}"><button>Register</button></a>
 
-</body>
-</html>
+{% endblock %}

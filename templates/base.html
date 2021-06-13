@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    {% block head %}{% endblock %}
+
+    <title></title>
+</head>
+<body>
+
+    <nav class="py-2 bg-dark text-white border-bottom">
+        <div class="container d-flex flex-wrap">
+            <ul class="nav me-auto">
+                <li class="nav-item"><a href="{% url 'workout:index' %}" class="nav-link px-2 text-white">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a href="{% url 'workout:trainingcard_list' %}" class="nav-link px-2 text-white">My Training Cards</a></li>
+                    <li class="nav-item"><a href="{% url 'workout:exercise_list' %}" class="nav-link px-2 text-white">My Esercises</a></li>
+                {% else %}
+                    <li class="nav-item"><a href="{% url 'workout:trainingcard_search' %}" class="nav-link px-2 text-white">Search Cards</a></li>
+                    <li class="nav-item"><a href="{% url 'workout:exercise_search' %}" class="nav-link px-2 text-white">Search Esercises</a></li>
+                {% endif %}
+            </ul>
+            <ul class="nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">Hello, {% if request.user.first_name %}{{ user.first_name }}!{% else %}{{ user }}!{% endif %}</li>
+                    <li class="nav-item"><a href="{% url 'accounts:profile' %}" class="nav-link px-2 active">Profile</a></li>
+                    <li class="nav-item"><a href="{% url 'logout_view' %}"><button type="button" class="btn btn-warning">Logout</button></a></li>
+                {% else %}
+                    <li class="nav-item"><a href="{% url 'login' %}"><button type="button" class="btn btn-outline-light me-2">Login</button></a></li>
+                    <li class="nav-item"><a href="{% url 'accounts:register' %}"><button type="button" class="btn btn-warning">SignUp</button></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    {% block body %}{% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 import os
 
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
 from django.utils.html import mark_safe
@@ -29,6 +30,7 @@ def rename(instance, filename):
 
 
 class Exercise(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     description = models.TextField(max_length=200, blank=True, default="Suggestions...\nCommon errors...")
     type = models.CharField(max_length=15, choices=EXER_TYPE_CHOICES, default=EXER_TYPE_CHOICES[0])
@@ -51,17 +53,8 @@ class Exercise(models.Model):
     def __str__(self):
         return self.name
 
-    def load_attrs(self):
-        names = [field.name for field in self._meta.fields]
-        names.remove('id')
-        attr_dict = {name: getattr(self, name) for name in names}
-        return attr_dict
-
-    @staticmethod
-    def get_field_names(self):
-        names = [field.name for field in self._meta.fields]
-        names.remove('id')
-        return names
+    class Meta:
+        unique_together = (('name', 'user'),)
 
 
 # noinspection PyUnusedLocal
@@ -102,29 +95,21 @@ def auto_delete_file_on_change(instance, **kwargs):
 
 
 class TrainingCard(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     description = models.TextField(max_length=300, blank=True)
     type = models.CharField(max_length=15, choices=CARD_TYPE_CHOICES, default=CARD_TYPE_CHOICES[0])
     level = models.CharField(max_length=15, choices=LEVEL_CHOICES, default=LEVEL_CHOICES[0])
     goal = models.CharField(max_length=15, choices=GOAL_CHOICES, default=GOAL_CHOICES[0])
     taw = models.PositiveSmallIntegerField('Times a week', default=0)
-
     public = models.BooleanField(default=False)
+    exercises = models.ManyToManyField(Exercise, through='ConcreteExercise')
+
+    class Meta:
+        unique_together = (('name', 'user'),)
 
     def __str__(self):
         return self.name
-
-    def load_attrs(self):
-        names = [field.name for field in self._meta.fields]
-        names.remove('id')
-        attr_dict = {name: getattr(self, name) for name in names}
-        return attr_dict
-
-    @staticmethod
-    def get_field_names(self):
-        names = [field.name for field in self._meta.fields]
-        names.remove('id')
-        return names
 
 
 class ConcreteExercise(models.Model):
@@ -136,10 +121,3 @@ class ConcreteExercise(models.Model):
 
     def __str__(self):
         return self.exercise.name
-
-    @staticmethod
-    def get_field_names(self):
-        names = [field.name for field in self._meta.fields]
-        names.remove('id')
-        names.remove('card')
-        return names

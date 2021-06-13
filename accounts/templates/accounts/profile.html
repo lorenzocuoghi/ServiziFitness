@@ -1,14 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "base.html" %}
+{% block head %}
+
     <title>Profile</title>
-</head>
-<body>
 
-    <h1>Profile</h1>
+{% endblock %}
+{% block body %}
 
+    <h1>Profile {{ user.first_name }} {{ user.last_name }}</h1>
 
+    <table>
+        <tr><td>Username:</td><td>{{ user.username }}</td></tr>
+        <tr><td>First name:</td><td>{{ user.first_name }}</td></tr>
+        <tr><td>Last name:</td><td>{{ user.last_name }}</td></tr>
+        <tr><td>Email:</td><td>{{ user.email }}</td></tr>
+        <tr><td>Sex:</td><td>{{ profile.get_sex_display }}</td></tr>
+        <tr><td>Birthday:</td><td>{{ profile.birthday }}</td></tr>
+        <tr><td>Height:</td><td>{{ profile.height }} cm</td></tr>
+        <tr><td>Weight:</td><td>{{ profile.weight }} Kg</td></tr>
+    </table>
 
-</body>
-</html>
+    <a href="{% url 'accounts:edit' %}"><button>Edit</button></a>
+
+{% endblock %}

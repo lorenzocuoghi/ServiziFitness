@@ -1,4 +1,4 @@
-{% extends "workout/base.html" %}
+{% extends "base.html" %}
 {% block head %}
 
     {% load static %}
@@ -38,5 +38,8 @@
         <br><br>
         <input type="submit" value="Save" />
     </form>
+
+    <a href="{% if card_id %}{% url 'workout:trainingcard_detail' card_id %}
+             {% else %}{% url 'workout:trainingcard_list' %}{% endif %}"><button>Cancel</button></a>
 
 {% endblock %}

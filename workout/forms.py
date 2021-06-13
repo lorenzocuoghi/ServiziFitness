@@ -21,7 +21,7 @@ class ExerciseForm(forms.ModelForm):
 
     class Meta:
         model = Exercise
-        fields = model.get_field_names(model)
+        exclude = ('id', 'user',)
 
 
 class TrainingCardForm(forms.ModelForm):
@@ -29,4 +29,4 @@ class TrainingCardForm(forms.ModelForm):
 
     class Meta:
         model = TrainingCard
-        fields = model.get_field_names(model)
+        exclude = ('id', 'user', 'exercises')

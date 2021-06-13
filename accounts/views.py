@@ -4,8 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .forms import ProfileForm, UserForm
-from .models import Profile
+from .forms import ProfileForm, UserEditForm, UserForm
 
 
 def register(request):
@@ -35,7 +34,26 @@ def register(request):
 
 @login_required()
 def profile(request):
-    prof = Profile.objects.get(user_id__exact=request.user.id)
     template = 'accounts/profile.html'
-    context = {'profile': prof}
+    context = {'profile': request.user.profile}
     return render(request, template, context)
+
+
+@login_required()
+def edit(request):
+    uf = UserEditForm(prefix='user', instance=request.user)
+    pf = ProfileForm(prefix='profile', instance=request.user.profile)
+    template = 'registration/register.html'
+    context = dict(userform=uf, profileform=pf)
+    return render(request, template, context)
+
+
+@login_required()
+def submit(request):
+    uf = UserEditForm(request.POST, prefix='user', instance=request.user)
+    pf = ProfileForm(request.POST, prefix='profile', instance=request.user.profile)
+    if uf.is_valid() and pf.is_valid():
+        uf.save()
+        pf.save()
+        return HttpResponseRedirect(reverse('accounts:profile'))
+    return HttpResponseRedirect(reverse('accounts:edit'))
