@@ -6,27 +6,35 @@
 {% endblock %}
 {% block body %}
 
-    <h1>Login</h1>
+    <div class="col-md-2 mx-auto pt-5 mt-5">
+        <div class="border border-dark p-4 rounded shadow">
+        <form data-bitwarden-watching="1" method="post">
+            {% csrf_token %}
+            <h3 class="text-center fw-normal mb-3">Please sign in</h3>
 
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="username" name="{{ form.username.html_name }}">
+                <label for="floatingInput">Username</label>
+            </div>
+            <div class="form-floating mb-1">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="{{ form.password.html_name }}">
+                <label for="floatingPassword">Password</label>
+            </div>
 
-    <form method="post">
-        {% csrf_token %}
-        <p>
-            {{ form.username.label_tag }}
-            {{ form.username }}
-        </p><p>
-            {{ form.password.label_tag }}
-            {{ form.password }}
-        </p>
-        <input type="submit" value="login" />
-        {% if next %}
-            <input type="hidden" name="next" value="{{ next }}" />
-        {% endif %}
-    </form>
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    Your username and password didn't match. Please try again.
+                </div>
+            {% endif %}
 
-    <a href="{% url 'accounts:register' %}"><button>Register</button></a>
+            <p>Don't have an account? <a href="{% url 'accounts:register' %}">SignUp!</a></p>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}" />
+            {% endif %}
+        </form>
+        </div>
+    </div>
 
 {% endblock %}

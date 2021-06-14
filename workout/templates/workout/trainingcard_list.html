@@ -13,7 +13,7 @@
 {% endblock %}
 {% block body %}
 
-    <h1>
+    <h1 class="text-center">
         {% if search %}
             Search
         {% else %}
@@ -23,17 +23,38 @@
     </h1>
 
     {% if not search %}
-        <a href="{% url 'workout:trainingcard_create' %}"><button>Create New</button></a>
-        <a href="{% url 'workout:trainingcard_search' %}"><button>Search Existing</button></a>
+        <div class="container">
+            <div class="row">
+                <div class="col text-center"><a href="{% url 'workout:trainingcard_create' %}"><button class="btn btn-lg btn-outline-primary">Create new</button></a></div>
+                <div class="col text-center"><a href="{% url 'workout:trainingcard_search' %}"><button class="btn btn-lg btn-outline-primary">Find existing</button></a></div>
+            </div>
+        </div>
     {% endif %}
 
     {% if trainingcard_list %}
-        <ul>
-            {% for trainingcard in trainingcard_list %}
-                <li><a href="{% url 'workout:trainingcard_detail' trainingcard.id %}">
-                    {% if search %}{{ trainingcard }}{% else %}{{ trainingcard.name }}{% endif %}</a></li>
-            {% endfor %}
-        </ul>
+        <div class="container">
+            <div class="row row-cols-4 g-3">
+                {% for trainingcard in trainingcard_list %}
+                    <div class="col text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{% if search %}{{ trainingcard }}{% else %}{{ trainingcard.name }}{% endif %}</h5>
+                                <p class="card-text">
+                                    {{ trainingcard.get_level_display }}
+                                    <br>
+                                    {{ trainingcard.get_type_display }} - {{ trainingcard.get_goal_display }}
+                                    <br>
+                                    {{ trainingcard.duration }} min, {{ trainingcard.taw }} times a week
+                                    <br>
+                                </p>
+                                <a href="{% url 'workout:trainingcard_detail' trainingcard.id %}"><button class="btn btn-outline-primary">Show</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
     {% else %}
 	    <p>No training cards are available.</p>
     {% endif %}

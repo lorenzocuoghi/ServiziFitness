@@ -107,7 +107,7 @@ class TrainingCard(models.Model):
     level = models.CharField(max_length=15, choices=LEVEL_CHOICES, default=LEVEL_CHOICES[0])
     goal = models.CharField(max_length=15, choices=GOAL_CHOICES, default=GOAL_CHOICES[0])
     taw = models.PositiveSmallIntegerField('Times a week', default=0)
-    duration = models.PositiveSmallIntegerField(default=0)
+    duration = models.PositiveSmallIntegerField('Duration (minutes)', default=0)
     public = models.BooleanField(default=False)
     exercises = models.ManyToManyField(Exercise, through='ConcreteExercise')
 

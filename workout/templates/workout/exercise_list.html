@@ -23,8 +23,8 @@
     </h1>
 
     {% if not search %}
-        <a href="{% url 'workout:exercise_create' %}"><button>New exercise</button></a>
-        <a href="{% url 'workout:exercise_search' %}"><button>Search Existing</button></a>
+        <a href="{% url 'workout:exercise_create' %}"><button>Create new</button></a>
+        <a href="{% url 'workout:exercise_search' %}"><button>Find existing</button></a>
     {% endif %}
 
     {% if exercise_list %}

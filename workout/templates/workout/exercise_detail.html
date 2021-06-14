@@ -17,7 +17,7 @@
         <tr><td>Level:</td><td>{{ exercise.get_level_display }}</td></tr>
         <tr><td>Mode:</td><td>{{ exercise.get_mode_display }}</td></tr>
         <tr><td>Tool:</td><td>{{ exercise.get_tool_display }}</td></tr>
-        <tr><td>Video tutorial:</td><td><a href="{{ exercise.video }}">{{ exercise.video }}</a></td></tr>
+        <tr><td>Video tutorial:</td><td>{% if exercise.video %}<a href="{{ exercise.video }}">Link</a>{% else %}No link available{% endif %}</td></tr>
         <tr><td>Visibility:</td><td>{% ifequal exercise.public False %}Private{% else %}Public{% endifequal %}</td></tr>
     </table>
 
