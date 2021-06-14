@@ -15,7 +15,6 @@ CARD_TYPE_CHOICES = (('FULL_BODY', 'Full Body'), ('UPPER_BODY', 'Upper Body'), (
 EXER_TYPE_CHOICES = (('WARM-UP', 'Warm-up'), ('CARDIO', 'Cardio'), ('ARMS', 'Arms'), ('CHEST', 'Chest'),
                      ('SHOULDERS', 'Shoulders'), ('CORE', 'Core'), ('BACK', 'Back'), ('LEGS', 'Legs'),
                      ('STRETCHING', 'Stretching'))
-MODE_CHOICES = (('DYNAMIC', 'Dynamic'), ('ISOMETRIC', 'Isometric'))
 GOAL_CHOICES = (('MASS', 'Mass'), ('RESISTANCE', 'Resistance'), ('TONE', 'Tone'), ('FAT-BURNING', 'Fat-Burning'))
 TOOL_CHOICES = (('FREEBODY', 'Freebody'), ('LOOP_BAND', 'Loop band'), ('PULL_UP_BAR', 'Pull-up bar'),
                 ('PARALLEL_BARS', 'Parallel bars'), ('DUMBBELLS', 'Dumbbells'), ('BARBELL', 'Barbell'))
@@ -39,7 +38,6 @@ class Exercise(models.Model):
     description = models.TextField(max_length=200, blank=True, default="Suggestions...\nCommon errors...")
     type = models.CharField(max_length=15, choices=EXER_TYPE_CHOICES, default=EXER_TYPE_CHOICES[0])
     level = models.CharField(max_length=15, choices=LEVEL_CHOICES, default=LEVEL_CHOICES[0])
-    mode = models.CharField(max_length=15, choices=MODE_CHOICES, default=MODE_CHOICES[0])
     tool = models.CharField(max_length=15, choices=TOOL_CHOICES, default=TOOL_CHOICES[0])
     image = models.ImageField(upload_to=rename, max_length=500, blank=True, default=None)
     video = models.URLField('Video tutorial', max_length=128, blank=True)

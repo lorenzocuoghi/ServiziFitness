@@ -6,11 +6,11 @@ from .models import ConcreteExercise, Exercise, TrainingCard
 class ExerciseAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name']}),
-        ('Details', {'fields': ['image_tag', 'image', 'description', 'type', 'level', 'mode', 'tool', 'video']}),
+        ('Details', {'fields': ['image_tag', 'image', 'description', 'type', 'level', 'tool', 'video']}),
         ('Visibility', {'fields': ['public'], 'classes': ['collapse']}),
     ]
     readonly_fields = ['image_tag']
-    list_display = ['name', 'type', 'level', 'mode', 'tool', 'public']
+    list_display = ['name', 'type', 'level', 'tool', 'public']
     list_filter = ['type', 'level', 'tool', 'public']
     search_fields = ['name']
     radio_fields = {'level': admin.VERTICAL}

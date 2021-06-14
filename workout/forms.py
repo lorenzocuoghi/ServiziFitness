@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.html import mark_safe
 
-from .models import Exercise, MODE_CHOICES, TrainingCard
+from .models import Exercise, TrainingCard
 
 
 class ImagePreviewWidget(forms.ClearableFileInput):
@@ -17,7 +17,6 @@ class ImagePreviewWidget(forms.ClearableFileInput):
 
 class ExerciseForm(forms.ModelForm):
     image = forms.ImageField(max_length=500, required=False, widget=ImagePreviewWidget)
-    mode = forms.CharField(max_length=15, widget=forms.RadioSelect(choices=MODE_CHOICES))
 
     class Meta:
         model = Exercise
