@@ -8,13 +8,17 @@ from django.utils.html import mark_safe
 from PIL import Image
 from uuid import uuid4
 
-LEVEL_CHOICES = (('BEGINNER', 'Beginner'), ('INTERMEDIATE', 'Intermediate'), ('ADVANCED', 'Advanced'))
+LEVEL_CHOICES = (('UNIQUE', 'Unique'), ('BEGINNER', 'Beginner'), ('INTERMEDIATE', 'Intermediate'),
+                 ('ADVANCED', 'Advanced'))
 CARD_TYPE_CHOICES = (('FULL_BODY', 'Full Body'), ('UPPER_BODY', 'Upper Body'), ('LOWER_BODY', 'Lower Body'),
                      ('PUSH', 'Push'), ('PULL', 'Pull'), ('LEGS', 'Legs'))
 EXER_TYPE_CHOICES = (('WARM-UP', 'Warm-up'), ('CARDIO', 'Cardio'), ('ARMS', 'Arms'), ('CHEST', 'Chest'),
                      ('SHOULDERS', 'Shoulders'), ('CORE', 'Core'), ('BACK', 'Back'), ('LEGS', 'Legs'),
                      ('STRETCHING', 'Stretching'))
+MODE_CHOICES = (('DYNAMIC', 'Dynamic'), ('ISOMETRIC', 'Isometric'))
 GOAL_CHOICES = (('MASS', 'Mass'), ('RESISTANCE', 'Resistance'), ('TONE', 'Tone'), ('FAT-BURNING', 'Fat-Burning'))
+TOOL_CHOICES = (('FREEBODY', 'Freebody'), ('LOOP_BAND', 'Loop band'), ('PULL_UP_BAR', 'Pull-up bar'),
+                ('PARALLEL_BARS', 'Parallel bars'), ('DUMBBELLS', 'Dumbbells'), ('BARBELL', 'Barbell'))
 
 
 def rename(instance, filename):
@@ -35,7 +39,10 @@ class Exercise(models.Model):
     description = models.TextField(max_length=200, blank=True, default="Suggestions...\nCommon errors...")
     type = models.CharField(max_length=15, choices=EXER_TYPE_CHOICES, default=EXER_TYPE_CHOICES[0])
     level = models.CharField(max_length=15, choices=LEVEL_CHOICES, default=LEVEL_CHOICES[0])
+    mode = models.CharField(max_length=15, choices=MODE_CHOICES, default=MODE_CHOICES[0])
+    tool = models.CharField(max_length=15, choices=TOOL_CHOICES, default=TOOL_CHOICES[0])
     image = models.ImageField(upload_to=rename, max_length=500, blank=True, default=None)
+    video = models.URLField('Video tutorial', max_length=128, blank=True)
     public = models.BooleanField(default=False)
 
     def image_tag(self):
@@ -51,7 +58,7 @@ class Exercise(models.Model):
             img.save(self.image.path)
 
     def __str__(self):
-        return self.name
+        return str(self.name + ' (by ' + self.user.username + ')')
 
     class Meta:
         unique_together = (('name', 'user'),)
@@ -102,6 +109,7 @@ class TrainingCard(models.Model):
     level = models.CharField(max_length=15, choices=LEVEL_CHOICES, default=LEVEL_CHOICES[0])
     goal = models.CharField(max_length=15, choices=GOAL_CHOICES, default=GOAL_CHOICES[0])
     taw = models.PositiveSmallIntegerField('Times a week', default=0)
+    duration = models.PositiveSmallIntegerField(default=0)
     public = models.BooleanField(default=False)
     exercises = models.ManyToManyField(Exercise, through='ConcreteExercise')
 
@@ -109,7 +117,7 @@ class TrainingCard(models.Model):
         unique_together = (('name', 'user'),)
 
     def __str__(self):
-        return self.name
+        return str(self.name + ' (by ' + self.user.username + ')')
 
 
 class ConcreteExercise(models.Model):
@@ -117,6 +125,7 @@ class ConcreteExercise(models.Model):
     card = models.ForeignKey(TrainingCard, on_delete=models.CASCADE)
     series = models.PositiveSmallIntegerField(default=0)
     reps = models.PositiveSmallIntegerField(default=0)
+    weight = models.FloatField('Weight (if any) [Kg]', default=0)
     rest = models.PositiveSmallIntegerField("Rest (seconds)", default=0)
 
     def __str__(self):

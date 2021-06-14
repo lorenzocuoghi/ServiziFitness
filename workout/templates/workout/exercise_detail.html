@@ -1,17 +1,23 @@
 {% extends "base.html" %}
 {% block head %}
 
-    <title>{{ exercise }}</title>
+    <title>{{ exercise.name }}</title>
 
 {% endblock %}
 {% block body %}
 
-    <h1>{{ exercise }}</h1>
+    <h1>{{ exercise.name }}</h1>
+    {% if not exercise.user == user %}
+        <h4>Created by {{ exercise.user }}</h4>
+    {% endif %}
     <img src="{% if exercise.image %}{{ exercise.image.url }}{% endif %}" alt="No image">
     <table>
         <tr><td>Description:</td><td>{{ exercise.description }}</td></tr>
         <tr><td>Type:</td><td>{{ exercise.get_type_display }}</td></tr>
         <tr><td>Level:</td><td>{{ exercise.get_level_display }}</td></tr>
+        <tr><td>Mode:</td><td>{{ exercise.get_mode_display }}</td></tr>
+        <tr><td>Tool:</td><td>{{ exercise.get_tool_display }}</td></tr>
+        <tr><td>Video tutorial:</td><td><a href="{{ exercise.video }}">{{ exercise.video }}</a></td></tr>
         <tr><td>Visibility:</td><td>{% ifequal exercise.public False %}Private{% else %}Public{% endifequal %}</td></tr>
     </table>
 

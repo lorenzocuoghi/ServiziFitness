@@ -30,7 +30,8 @@
     {% if trainingcard_list %}
         <ul>
             {% for trainingcard in trainingcard_list %}
-                <li><a href="{% url 'workout:trainingcard_detail' trainingcard.id %}">{{ trainingcard }}</a></li>
+                <li><a href="{% url 'workout:trainingcard_detail' trainingcard.id %}">
+                    {% if search %}{{ trainingcard }}{% else %}{{ trainingcard.name }}{% endif %}</a></li>
             {% endfor %}
         </ul>
     {% else %}

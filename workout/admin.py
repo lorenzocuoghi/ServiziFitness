@@ -6,12 +6,12 @@ from .models import ConcreteExercise, Exercise, TrainingCard
 class ExerciseAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name']}),
-        ('Details', {'fields': ['image_tag', 'image', 'description', 'type', 'level']}),
+        ('Details', {'fields': ['image_tag', 'image', 'description', 'type', 'level', 'mode', 'tool', 'video']}),
         ('Visibility', {'fields': ['public'], 'classes': ['collapse']}),
     ]
     readonly_fields = ['image_tag']
-    list_display = ['name', 'type', 'level', 'public']
-    list_filter = ['type', 'level', 'public']
+    list_display = ['name', 'type', 'level', 'mode', 'tool', 'public']
+    list_filter = ['type', 'level', 'tool', 'public']
     search_fields = ['name']
     radio_fields = {'level': admin.VERTICAL}
 
@@ -25,7 +25,7 @@ class ExerciseInline(admin.StackedInline):
 class TrainingCardAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name']}),
-        ('Details', {'fields': ['description', 'type', 'level', 'goal', 'taw']}),
+        ('Details', {'fields': ['description', 'type', 'level', 'goal', 'taw', 'duration']}),
         ('Visibility', {'fields': ['public'], 'classes': ['collapse']}),
     ]
     inlines = [ExerciseInline]
