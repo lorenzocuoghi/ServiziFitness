@@ -12,17 +12,20 @@
                 {% csrf_token %}
                 <h3 class="text-center fw-normal mb-3">Please sign in</h3>
 
+                {{ form.non_field_errors }}
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="{{ form.username.id_for_label }}" placeholder="username"
                            name="{{ form.username.html_name }}" maxlength="{{ form.username.field.max_length }}"
                            autofocus required />
                     <label for="{{ form.username.id_for_label }}">Username</label>
+                    {{ form.username.errors }}
                 </div>
                 <div class="form-floating mb-1">
                     <input type="password" class="form-control" id="{{ form.password.id_for_label }}"
                            placeholder="Password" name="{{ form.password.html_name }}"
                            maxlength="{{ form.username.field.max_length }}" required />
                     <label for="{{ form.password.id_for_label }}">Password</label>
+                    {{ form.password.errors }}
                 </div>
 
                 {% if form.errors %}

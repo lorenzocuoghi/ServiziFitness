@@ -7,7 +7,7 @@
 {% block body %}
 
     <div class="container border col-md-6 my-5 rounded shadow">
-        <h1 class="text-center m-3">Profile {{ user.first_name }} {{ user.last_name }}</h1>
+        <h1 class="text-center m-3">Profile of {% if request.user.first_name %}{{ user.first_name }} {{ user.last_name }}{% else %}{{ user }}{% endif %}</h1>
 
         <table class="table">
             <tr><td class="col-2">Username</td><td class="col-4">{{ user.username }}</td></tr>

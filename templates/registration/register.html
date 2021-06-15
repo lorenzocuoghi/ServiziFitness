@@ -24,11 +24,14 @@
                       {% else %}{% url 'accounts:register' %}
                       {% endif %}" method="post">
             {% csrf_token %}
+            {{ userform.non_field_errors }}
+            {{ profileform.non_field_errors }}
             <div class="mb-3">
                 <label for="{{ userform.username.id_for_label }}" class="form-label">{{ userform.username.label }}</label>
                 <input type="text" class="form-control" name="{{ userform.username.html_name }}"
                        id="{{ userform.username.id_for_label }}" maxlength="{{ userform.username.field.max_length }}"
                        aria-describedby="userHelp" autofocus required />
+                {{ userform.username.errors }}
                 <div id="userHelp" class="form-text">{{ userform.username.help_text }}</div>
             </div>
             <div class="row mb-3">
@@ -37,6 +40,7 @@
                     <input type="password" class="form-control" name="{{ userform.password1.html_name }}"
                            id="{{ userform.password1.id_for_label }}" maxlength="{{ userform.password1.field.max_length }}"
                     aria-describedby="password1Help" required />
+                    {{ userform.password1.errors }}
                     <div id="password1Help" class="form-text">{{ userform.password1.help_text }}</div>
                 </div>
                 <div class="col">
@@ -44,6 +48,7 @@
                     <input type="password" class="form-control" name="{{ userform.password2.html_name }}"
                            id="{{ userform.password2.id_for_label }}" maxlength="{{ userform.password2.field.max_length }}"
                     aria-describedby="password2Help" required />
+                    {{ userform.password2.errors }}
                     <div id="password2Help" class="form-text">{{ userform.password2.help_text }}</div>
                 </div>
             </div>
@@ -52,17 +57,20 @@
                     <label for="{{ userform.first_name.id_for_label }}" class="form-label">{{ userform.first_name.label }}</label>
                     <input type="text" class="form-control" name="{{ userform.first_name.html_name }}"
                            id="{{ userform.first_name.id_for_label }}" maxlength="{{ userform.first_name.field.max_length }}" />
+                    {{ userform.first_name.errors }}
                 </div>
                 <div class="col">
                     <label for="{{ userform.last_name.id_for_label }}" class="form-label">{{ userform.last_name.label }}</label>
                     <input type="text" class="form-control" name="{{ userform.last_name.html_name }}"
                            id="{{ userform.last_name.id_for_label }}" maxlength="{{ userform.last_name.field.max_length }}" />
+                    {{ userform.last_name.errors }}
                 </div>
             </div>
             <div class="mb-3">
                 <label for="{{ userform.email.id_for_label }}" class="form-label">{{ userform.email.label }}</label>
                 <input type="email" class="form-control" name="{{ userform.email.html_name }}"
                        id="{{ userform.email.id_for_label }}" maxlength="{{ userform.email.field.max_length }}" />
+                {{ userform.email.errors }}
             </div>
             <div class="row mb-3">
                 <fieldset class="col">
@@ -73,11 +81,13 @@
                         <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
                         <br />
                     {% endfor %}
+                    {{ profileform.sex.errors }}
                 </fieldset>
                 <div class="col">
                     <label for="{{ profileform.birthday.id_for_label }}" class="form-label">{{ profileform.birthday.label }}</label>
                     <input type="date" class="form-control" name="{{ profileform.birthday.html_name }}"
                            id="{{ profileform.birthday.id_for_label }}" />
+                    {{ profileform.birthday.errors }}
                 </div>
             </div>
             <div class="row mb-3">
@@ -85,11 +95,13 @@
                     <label for="{{ profileform.height.id_for_label }}" class="form-label">{{ profileform.height.label }}</label>
                     <input type="number" class="form-control" name="{{ profileform.height.html_name }}"
                            id="{{ profileform.height.id_for_label }}" min="{{ profileform.height.field.min_value }}" />
+                    {{ profileform.height.errors }}
                 </div>
                 <div class="col">
                     <label for="{{ profileform.weight.id_for_label }}" class="form-label">{{ profileform.weight.label }}</label>
                     <input type="number" class="form-control" name="{{ profileform.weight.html_name }}"
                            id="{{ profileform.weight.id_for_label }}" min="{{ profileform.weight.field.min_value }}" />
+                    {{ profileform.weight.errors }}
                 </div>
             </div>
 
@@ -100,6 +112,8 @@
                 {% endif %}
             </div>
         </form>
+
+
 
     </div>
 
