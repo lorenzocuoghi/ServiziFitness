@@ -28,7 +28,7 @@
         <input type="submit" value="Save" />
     </form>
 
-    <a href="{% if card_id %}{% url 'workout:exercise_detail' exer_id %}
+    <a href="{% if exer_id %}{% url 'workout:exercise_detail' exer_id %}
              {% else %}{% url 'workout:exercise_list' %}{% endif %}"><button>Cancel</button></a>
 
 {% endblock %}

@@ -125,6 +125,7 @@ class ConcreteExercise(models.Model):
     reps = models.PositiveSmallIntegerField(default=0)
     weight = models.FloatField('Weight (if any) [Kg]', default=0)
     rest = models.PositiveSmallIntegerField("Rest (seconds)", default=0)
+    notes = models.TextField(max_length=200, blank=True, default="Suggestions...\nCommon errors...")
 
     def __str__(self):
         return self.exercise.name

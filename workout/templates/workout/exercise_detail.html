@@ -6,24 +6,28 @@
 {% endblock %}
 {% block body %}
 
-    <h1>{{ exercise.name }}</h1>
-    {% if not exercise.user == user %}
-        <h4>Created by {{ exercise.user }}</h4>
-    {% endif %}
-    <img src="{% if exercise.image %}{{ exercise.image.url }}{% endif %}" alt="No image">
-    <table>
-        <tr><td>Description:</td><td>{{ exercise.description }}</td></tr>
-        <tr><td>Type:</td><td>{{ exercise.get_type_display }}</td></tr>
-        <tr><td>Level:</td><td>{{ exercise.get_level_display }}</td></tr>
-        <tr><td>Mode:</td><td>{{ exercise.get_mode_display }}</td></tr>
-        <tr><td>Tool:</td><td>{{ exercise.get_tool_display }}</td></tr>
-        <tr><td>Video tutorial:</td><td>{% if exercise.video %}<a href="{{ exercise.video }}">Link</a>{% else %}No link available{% endif %}</td></tr>
-        <tr><td>Visibility:</td><td>{% ifequal exercise.public False %}Private{% else %}Public{% endifequal %}</td></tr>
-    </table>
+    <div class="container border col-md-6 my-5 rounded shadow">
 
-    {% if user.is_authenticated and exercise.user == user %}
-        <a href="{% url 'workout:exercise_change' exercise.id %}"><button>Edit</button></a>
-        <a href="{% url 'workout:exercise_delete' exercise.id %}"><button>Delete</button></a>
-    {% endif %}
+        <h1 class="text-center m-3">{{ exercise.name }}</h1>
+        {% if not exercise.user == user %}
+            <h4>Created by {{ exercise.user }}</h4>
+        {% endif %}
+        <div class="text-center"><img src="{% if exercise.image %}{{ exercise.image.url }}{% endif %}" alt="No image"></div>
+        <table class="table">
+            <tr><td>Description</td><td>{{ exercise.description }}</td></tr>
+            <tr><td>Type</td><td>{{ exercise.get_type_display }}</td></tr>
+            <tr><td>Level</td><td>{{ exercise.get_level_display }}</td></tr>
+            <tr><td>Tool</td><td>{{ exercise.get_tool_display }}</td></tr>
+            <tr><td>Video tutorial</td><td>{% if exercise.video %}<a href="{{ exercise.video }}">Link</a>{% else %}No link available{% endif %}</td></tr>
+            <tr><td>Visibility</td><td>{% ifequal exercise.public False %}Private{% else %}Public{% endifequal %}</td></tr>
+        </table>
+
+        {% if user.is_authenticated and exercise.user == user %}
+            <div class="text-center m-2">
+                <a href="{% url 'workout:exercise_change' exercise.id %}"><button class="btn btn-outline-primary">Edit</button></a>
+            </div>
+        {% endif %}
+
+    </div>
 
 {% endblock %}

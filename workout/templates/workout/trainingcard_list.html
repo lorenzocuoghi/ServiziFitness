@@ -13,51 +13,54 @@
 {% endblock %}
 {% block body %}
 
-    <h1 class="text-center">
-        {% if search %}
-            Search
-        {% else %}
-            My
-        {% endif %}
-        Training Cards
-    </h1>
+    <div class="container m-3 col-md-9 mx-auto">
 
-    {% if not search %}
-        <div class="container">
-            <div class="row">
-                <div class="col text-center"><a href="{% url 'workout:trainingcard_create' %}"><button class="btn btn-lg btn-outline-primary">Create new</button></a></div>
-                <div class="col text-center"><a href="{% url 'workout:trainingcard_search' %}"><button class="btn btn-lg btn-outline-primary">Find existing</button></a></div>
+        <h1 class="text-center m-3">
+            {% if search %}
+                Search
+            {% else %}
+                My
+            {% endif %}
+            Training Cards
+        </h1>
+
+        {% if not search %}
+            <div class="container my-4">
+                <div class="row">
+                    <div class="col text-center"><a href="{% url 'workout:trainingcard_create' %}"><button class="btn btn-lg btn-outline-primary">Create new</button></a></div>
+                    <div class="col text-center"><a href="{% url 'workout:trainingcard_search' %}"><button class="btn btn-lg btn-outline-primary">Find existing</button></a></div>
+                </div>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
 
-    {% if trainingcard_list %}
-        <div class="container">
-            <div class="row row-cols-4 g-3">
-                {% for trainingcard in trainingcard_list %}
-                    <div class="col text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{% if search %}{{ trainingcard }}{% else %}{{ trainingcard.name }}{% endif %}</h5>
-                                <p class="card-text">
-                                    {{ trainingcard.get_level_display }}
-                                    <br>
-                                    {{ trainingcard.get_type_display }} - {{ trainingcard.get_goal_display }}
-                                    <br>
-                                    {{ trainingcard.duration }} min, {{ trainingcard.taw }} times a week
-                                    <br>
-                                </p>
-                                <a href="{% url 'workout:trainingcard_detail' trainingcard.id %}"><button class="btn btn-outline-primary">Show</button></a>
+        {% if trainingcard_list %}
+            <div class="container">
+                <div class="row row-cols-4 g-3">
+                    {% for trainingcard in trainingcard_list %}
+                        <div class="col text-center">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{% if search %}{{ trainingcard }}{% else %}{{ trainingcard.name }}{% endif %}</h5>
+                                    <p class="card-text">
+                                        {{ trainingcard.get_level_display }}
+                                        <br>
+                                        {{ trainingcard.get_type_display }} - {{ trainingcard.get_goal_display }}
+                                        <br>
+                                        {{ trainingcard.duration }} min, {{ trainingcard.taw }} times a week
+                                        <br>
+                                    </p>
+                                    <a href="{% url 'workout:trainingcard_detail' trainingcard.id %}"><button class="btn btn-outline-primary">Show</button></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
 
-    {% else %}
-	    <p>No training cards are available.</p>
-    {% endif %}
+        {% else %}
+            <div class="container text-center my-4 fs-4">No training cards are available.</div>
+        {% endif %}
 
+    </div>
 
 {% endblock %}

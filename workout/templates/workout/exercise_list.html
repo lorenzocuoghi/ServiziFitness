@@ -13,29 +13,49 @@
 {% endblock %}
 {% block body %}
 
-    <h1>
-        {% if search %}
-            Search
-        {% else %}
-            My
+    <div class="container m-3 col-md-9 mx-auto">
+
+        <h1 class="text-center m-3">
+            {% if search %}
+                Search
+            {% else %}
+                My
+            {% endif %}
+            Exercises
+        </h1>
+
+        {% if not search %}
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center"><a href="{% url 'workout:exercise_create' %}"><button class="btn btn-lg btn-outline-primary">Create new</button></a></div>
+                    <div class="col text-center"><a href="{% url 'workout:exercise_search' %}"><button class="btn btn-lg btn-outline-primary">Find existing</button></a></div>
+                </div>
+            </div>
         {% endif %}
-        Exercises
-    </h1>
 
-    {% if not search %}
-        <a href="{% url 'workout:exercise_create' %}"><button>Create new</button></a>
-        <a href="{% url 'workout:exercise_search' %}"><button>Find existing</button></a>
-    {% endif %}
-
-    {% if exercise_list %}
-        <ul>
+        {% if exercise_list %}
             {% for exercise in exercise_list %}
-                <li><a href="{% url 'workout:exercise_detail' exercise.id %}">
-                    {% if search %}{{ exercise }}{% else %}{{ exercise.name }}{% endif %}</a></li>
+                <div class="container border col-md-6 mx-auto my-3 rounded shadow">
+                    <div class="row">
+                        <div class="col-5"><img src="{% if exercise.image %}{{ exercise.image.url }}{% endif %}" alt="No image" width="100%" height="100%"></div>
+                        <div class="col">
+                            <h4>{% if search %}{{ exercise }}{% else %}{{ exercise.name }}{% endif %}</h4>
+                            <table>
+                                <tr><td class="col-2">Type</td><td class="col-2">{{ exercise.get_type_display }}</td></tr>
+                                <tr><td class="col-2">Level</td><td class="col-2">{{ exercise.get_level_display }}</td></tr>
+                                <tr><td class="col-2">Tool</td><td class="col-2">{{ exercise.get_tool_display }}</td></tr>
+                            </table>
+                        </div>
+                        <div class="col-2 my-auto mx-2">
+                            <a href="{% url 'workout:exercise_detail' exercise.id %}"><button class="btn btn-outline-primary">Show</button></a>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
-    {% else %}
-	    <p>No execises are available.</p>
-    {% endif %}
+        {% else %}
+            <div class="container text-center my-4 fs-4">No execises are available.</div>
+        {% endif %}
+
+    </div>
 
 {% endblock %}

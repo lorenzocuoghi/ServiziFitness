@@ -6,13 +6,17 @@
 {% endblock %}
 {% block body %}
 
-    <h1>My Workout</h1>
+    <h1 class="text-center m-3">My Workout</h1>
 
-    {% if user.is_authenticated %}
-        <a href="{% url 'workout:trainingcard_list' %}"><button>My Training Cards</button></a>
-        <a href="{% url 'workout:exercise_list' %}"><button>My Exercises</button></a>
-    {% endif %}
-    <a href="{% url 'workout:trainingcard_search' %}"><button>Search Training Cards</button></a>
-    <a href="{% url 'workout:exercise_search' %}"><button>Search Exercises</button></a>
+    <div class="container">
+        <div class="row row-cols-2 g-4">
+            {% if user.is_authenticated %}
+                <div class="col text-center"><a href="{% url 'workout:trainingcard_list' %}"><button class="btn btn-primary btn-lg">My Training Cards</button></a></div>
+                <div class="col text-center"><a href="{% url 'workout:exercise_list' %}"><button class="btn btn-primary btn-lg">My Exercises</button></a></div>
+            {% endif %}
+            <div class="col text-center"><a href="{% url 'workout:trainingcard_search' %}"><button class="btn btn-primary btn-lg">Find Training Cards</button></a></div>
+            <div class="col text-center"><a href="{% url 'workout:exercise_search' %}"><button class="btn btn-primary btn-lg">Find Exercises</button></a></div>
+        </div>
+    </div>
 
 {% endblock %}
