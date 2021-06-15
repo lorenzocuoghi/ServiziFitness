@@ -6,19 +6,24 @@
 {% endblock %}
 {% block body %}
 
-    <h1>Profile {{ user.first_name }} {{ user.last_name }}</h1>
+    <div class="container border col-md-6 my-5 rounded shadow">
+        <h1 class="text-center m-3">Profile {{ user.first_name }} {{ user.last_name }}</h1>
 
-    <table>
-        <tr><td>Username:</td><td>{{ user.username }}</td></tr>
-        <tr><td>First name:</td><td>{{ user.first_name }}</td></tr>
-        <tr><td>Last name:</td><td>{{ user.last_name }}</td></tr>
-        <tr><td>Email:</td><td>{{ user.email }}</td></tr>
-        <tr><td>Sex:</td><td>{{ profile.get_sex_display }}</td></tr>
-        <tr><td>Birthday:</td><td>{{ profile.birthday }}</td></tr>
-        <tr><td>Height:</td><td>{{ profile.height }} cm</td></tr>
-        <tr><td>Weight:</td><td>{{ profile.weight }} Kg</td></tr>
-    </table>
+        <table class="table">
+            <tr><td class="col-2">Username</td><td class="col-4">{{ user.username }}</td></tr>
+            <tr><td class="col-2">First name</td><td class="col-4">{{ user.first_name }}</td></tr>
+            <tr><td class="col-2">Last name</td><td class="col-4">{{ user.last_name }}</td></tr>
+            <tr><td class="col-2">Email</td><td class="col-4">{{ user.email }}</td></tr>
+            <tr><td class="col-2">Sex</td><td class="col-4">{{ profile.get_sex_display }}</td></tr>
+            <tr><td class="col-2">Birthday</td><td class="col-4">{{ profile.birthday }}</td></tr>
+            <tr><td class="col-2">Height</td><td class="col-4">{{ profile.height }} cm</td></tr>
+            <tr><td class="col-2">Weight</td><td class="col-4">{{ profile.weight }} Kg</td></tr>
+        </table>
 
-    <a href="{% url 'accounts:edit' %}"><button>Edit</button></a>
+        <div class="text-center m-2">
+            <a href="{% url 'accounts:edit' %}"><button class="btn btn-primary">Edit</button></a>
+        </div>
+
+    </div>
 
 {% endblock %}
