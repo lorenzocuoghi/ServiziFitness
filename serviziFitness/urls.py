@@ -27,6 +27,7 @@ urlpatterns = [
     path('workout/', include('workout.urls', namespace='workout')),
     path('', views.index, name='index'),
     path('', include('django.contrib.auth.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

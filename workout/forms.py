@@ -20,11 +20,11 @@ class ExerciseForm(forms.ModelForm):
 
     class Meta:
         model = Exercise
-        exclude = ('id', 'user',)
+        exclude = ['id', 'user']
 
 
 class TrainingCardForm(forms.ModelForm):
 
     class Meta:
         model = TrainingCard
-        exclude = ('id', 'user', 'exercises')
+        exclude = ['id', 'user', 'exercises']

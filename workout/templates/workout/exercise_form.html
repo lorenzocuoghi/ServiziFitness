@@ -12,23 +12,34 @@
 {% endblock %}
 {% block body %}
 
-    <h1>
-        {% if form.name.value %}
-            {{ form.name.value }}
-        {% else %}
-            New exercise
-        {% endif %}
-    </h1>
+    <div class="container border col-md-6 my-5 rounded shadow">
 
-    <form action="{% if exer_id %}{% url 'workout:exercise_submit' exer_id %}
-                  {% else %}{% url 'workout:exercise_create' %}
-                  {% endif %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Save" />
-    </form>
+        <h1 class="text-center m-3">
+            {% if form.name.value %}
+                {{ form.name.value }}
+            {% else %}
+                New exercise
+            {% endif %}
+        </h1>
 
-    <a href="{% if exer_id %}{% url 'workout:exercise_detail' exer_id %}
-             {% else %}{% url 'workout:exercise_list' %}{% endif %}"><button>Cancel</button></a>
+        <form action="{% if exer_id %}{% url 'workout:exercise_submit' exer_id %}
+                      {% else %}{% url 'workout:exercise_create' %}
+                      {% endif %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="text-center m-2">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+
+        </form>
+
+        <div class="text-center m-2">
+            <a href="{% if exer_id %}{% url 'workout:exercise_detail' exer_id %}
+                     {% else %}{% url 'workout:exercise_list' %}{% endif %}"><button class="btn btn-outline-primary">Cancel</button></a>
+            {% if exer_id %}<a href="{% url 'workout:exercise_delete' exer_id %}"><button class="btn btn-danger">Delete</button></a>{% endif %}
+        </div>
+
+    </div>
 
 {% endblock %}

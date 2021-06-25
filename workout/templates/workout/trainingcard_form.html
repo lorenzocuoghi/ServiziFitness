@@ -14,32 +14,40 @@
 {% endblock %}
 {% block body %}
 
-    <h1>
-        {% if form.name.value %}
-            {{ form.name.value }}
-        {% else %}
-            New training card
-        {% endif %}
-    </h1>
+    <div class="container border col-md-6 my-5 rounded shadow">
 
-    <form id="form-container" action="{% if card_id %}{% url 'workout:trainingcard_submit' card_id %}
-                  {% else %}{% url 'workout:trainingcard_create' %}
-                  {% endif %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {{ exer_formset.management_form }}
-        {% for exer_form in exer_formset %}
-            <div class="exercise-form">
-                <p>-----------------------------------------------------------------------------------------</p>
-                {{ exer_form.as_p }}
+        <h1 class="text-center m-3">
+            {% if form.name.value %}
+                {{ form.name.value }}
+            {% else %}
+                New training card
+            {% endif %}
+        </h1>
+
+        <form id="form-container" action="{% if card_id %}{% url 'workout:trainingcard_submit' card_id %}
+                      {% else %}{% url 'workout:trainingcard_create' %}
+                      {% endif %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ exer_formset.management_form }}
+            {% for exer_form in exer_formset %}
+                <div class="exercise-form">
+                    <p>-----------------------------------------------------------------------------------------</p>
+                    {{ exer_form.as_p }}
+                </div>
+            {% endfor %}
+            <button id="add-form" type="button" class="btn btn-primary">Add another exercise</button>
+            <div class="text-center m-2">
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
-        {% endfor %}
-        <button id="add-form" type="button">Add another exercise</button>
-        <br><br>
-        <input type="submit" value="Save" />
-    </form>
+        </form>
 
-    <a href="{% if card_id %}{% url 'workout:trainingcard_detail' card_id %}
-             {% else %}{% url 'workout:trainingcard_list' %}{% endif %}"><button>Cancel</button></a>
+        <div class="text-center m-2">
+            <a href="{% if card_id %}{% url 'workout:trainingcard_detail' card_id %}
+                     {% else %}{% url 'workout:trainingcard_list' %}{% endif %}"><button class="btn btn-outline-primary">Cancel</button></a>
+            {% if card_id %}<a href="{% url 'workout:trainingcard_delete' card_id %}"><button class="btn btn-danger">Delete</button></a>{% endif %}
+        </div>
+
+    </div>
 
 {% endblock %}

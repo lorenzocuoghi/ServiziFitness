@@ -6,17 +6,15 @@ from .models import Profile, SEX_CHOICES
 
 
 class UserForm(UserCreationForm):
-
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email')
+        fields = ['username', 'password1', 'password2', 'first_name', 'last_name', 'email']
 
 
 class UserEditForm(forms.ModelForm):
-
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ['username', 'first_name', 'last_name', 'email']
 
 
 class DateInput(forms.DateInput):
@@ -28,5 +26,5 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        exclude = ('id', 'user',)
+        exclude = ['id', 'user']
         widgets = {'birthday': DateInput()}

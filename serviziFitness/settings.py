@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'workout.apps.WorkoutConfig',
     'accounts.apps.AccountsConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

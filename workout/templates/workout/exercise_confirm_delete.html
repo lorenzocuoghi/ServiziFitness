@@ -6,12 +6,18 @@
 {% endblock %}
 {% block body %}
 
-    <h1>{{ exercise }}</h1>
+    <div class="container border col-md-6 my-5 rounded shadow">
 
-    <form method="post">
-        {% csrf_token %}
-        <p>Are you sure you want to delete "{{ exercise }}"?</p>
-        <input type="submit" value="Confirm">
-    </form>
+        <h1 class="text-center m-3">{{ exercise.name }}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="text-center fs-4">Are you sure you want to delete the exercise "{{ exercise.name }}"?</div>
+            <div class="text-center m-3">
+                <input type="submit" value="Confirm" class="btn btn-danger" />
+            </div>
+        </form>
+
+    </div>
 
 {% endblock %}

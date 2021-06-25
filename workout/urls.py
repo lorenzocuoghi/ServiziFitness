@@ -1,10 +1,19 @@
-from django.urls import path
-from . import views
+from django.urls import include, path
+from rest_framework import routers
+
+from . import api, views
 
 app_name = 'workout'
 
+router = routers.DefaultRouter()
+router.register(r'api/exercise/search', api.ExerciseSearchViewSet, 'exercise_search_api')
+router.register(r'api/trainingcard/search', api.TrainingCardSearchViewSet, 'trainingcard_search_api')
+router.register(r'api/exercise', api.ExerciseViewSet, 'exercise_api')
+router.register(r'api/trainingcard', api.TrainingCardViewSet, 'trainingcard_api')
+
 urlpatterns = [
     path('', views.index, name='index'),
+    path('', include(router.urls)),
     path('trainingcard/', views.TrainingCardView.as_view(), name='trainingcard_list'),
     path('trainingcard/create/', views.trainingcard_create, name='trainingcard_create'),
     path('trainingcard/<int:pk>/', views.TrainingCardDetailView.as_view(), name='trainingcard_detail'),

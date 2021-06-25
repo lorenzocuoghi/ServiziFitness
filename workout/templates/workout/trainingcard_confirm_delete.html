@@ -6,12 +6,18 @@
 {% endblock %}
 {% block body %}
 
-    <h1>{{ trainingcard }}</h1>
+    <div class="container border col-md-6 my-5 rounded shadow">
 
-    <form method="post">
-        {% csrf_token %}
-        <p>Are you sure you want to delete "{{ trainingcard }}"?</p>
-        <input type="submit" value="Confirm">
-    </form>
+        <h1 class="text-center m-3">{{ trainingcard.name }}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="text-center fs-4">Are you sure you want to delete the training card "{{ trainingcard.name }}"?</div>
+            <div class="text-center m-3">
+                <input type="submit" value="Confirm" class="btn btn-danger" />
+            </div>
+        </form>
+
+    </div>
 
 {% endblock %}
