@@ -3,3 +3,15 @@ ServiziFitnessSite/.idea
 ServiziFitnessSite/media
 ServiziFitnessSite/db.sqlite3
 ServiziFitnessSite/*migrations
+
+ServiziFitnessApp/node_modules/
+ServiziFitnessApp/.expo-shared
+ServiziFitnessApp/.expo
+ServiziFitnessApp/npm-debug.*
+ServiziFitnessApp/*.jks
+ServiziFitnessApp/*.p8
+ServiziFitnessApp/*.p12
+ServiziFitnessApp/*.key
+ServiziFitnessApp/*.mobileprovision
+ServiziFitnessApp/*.orig.*
+ServiziFitnessApp/web-build/
