@@ -1,5 +1,5 @@
-*.idea
+ServiziFitnessSite/.idea
 *__pycache__
-*media
-*db.sqlite3
-*/migrations
+ServiziFitnessSite/media
+ServiziFitnessSite/db.sqlite3
+ServiziFitnessSite/*migrations
