@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'workout.apps.WorkoutConfig',
     'accounts.apps.AccountsConfig',
+    'corsheaders',
     'rest_framework',
 ]
 
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'serviziFitness.urls'
@@ -137,3 +139,5 @@ MEDIA_URL = '/media/'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/workout/'
+
+CORS_ALLOW_ALL_ORIGINS = True

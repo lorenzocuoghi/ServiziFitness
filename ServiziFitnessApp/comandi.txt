@@ -1,0 +1,5 @@
+apri prompt dei comandi come amministratore
+
+D:
+cd D:\lorenzo\Google Drive\Magistrale\Corsi\Applicazioni Web e Mobile\Progetto\ServiziFitness\ServiziFitnessApp
+expo start
